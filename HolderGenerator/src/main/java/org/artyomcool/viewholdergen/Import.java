@@ -34,4 +34,11 @@ public class Import implements Comparable<Import> {
     public int compareTo(Import o) {
         return mClassName.compareTo(o.mClassName);
     }
+
+    public String toFullQualified() {
+        if (mClassName.contains(".")) {
+            return mClassName;
+        }
+        return "android.widget." + mClassName;
+    }
 }

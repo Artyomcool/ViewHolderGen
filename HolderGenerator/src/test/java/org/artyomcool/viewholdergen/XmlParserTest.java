@@ -4,6 +4,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,6 +38,9 @@ public class XmlParserTest {
 
         Assert.assertEquals("Model imports are incorrect", mTestImports, model.getImports());
         Assert.assertEquals("Model descriptors are incorrect", mTestDescriptors, model.getDescriptors());
+
+        //TODO move out to separate test
+        new ModelWriter(new PrintWriter(System.out)).write(model, "org.artyomcool.test", "test_layout");
     }
 
 }

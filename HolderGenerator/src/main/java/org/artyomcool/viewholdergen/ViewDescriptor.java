@@ -12,6 +12,18 @@ public class ViewDescriptor {
         mFieldName = fieldNameFromId(id);
     }
 
+    public String getFieldClass() {
+        return mFieldClass;
+    }
+
+    public String getFieldName() {
+        return mFieldName;
+    }
+
+    public String getId() {
+        return mId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,7 +44,7 @@ public class ViewDescriptor {
         return result;
     }
 
-    private static String fieldNameFromId(String id) {
+    public static String fieldNameFromId(String id) {
         String[] parts = id.split("\\_");
         StringBuilder result = new StringBuilder("m");
         for(String part : parts) {
@@ -55,4 +67,6 @@ public class ViewDescriptor {
                 ", mFieldClass='" + mFieldClass + '\'' +
                 '}';
     }
+
+
 }
