@@ -2,10 +2,10 @@ package org.artyomcool.viewholdergen;
 
 public class Import implements Comparable<Import> {
 
-    private String mClassName;
+    private String className;
 
     public Import(String className) {
-        mClassName = className;
+        this.className = toFullQualified(className);
     }
 
     @Override
@@ -15,30 +15,30 @@ public class Import implements Comparable<Import> {
 
         Import anImport = (Import) o;
 
-        if (!mClassName.equals(anImport.mClassName)) return false;
+        if (!className.equals(anImport.className)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return mClassName.hashCode();
+        return className.hashCode();
     }
 
     @Override
     public String toString() {
-        return "import " + mClassName;
+        return "import " + className;
     }
 
     @Override
     public int compareTo(Import o) {
-        return mClassName.compareTo(o.mClassName);
+        return className.compareTo(o.className);
     }
 
-    public String toFullQualified() {
-        if (mClassName.contains(".")) {
-            return mClassName;
+    private static String toFullQualified(String className) {
+        if (className.contains(".")) {
+            return className;
         }
-        return "android.widget." + mClassName;
+        return "android.widget." + className;
     }
 }

@@ -1,1 +1,12 @@
 apply plugin: 'java'
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile 'org.freemarker:freemarker:2.3.20'
+    testCompile 'junit:junit:4.11'
+}

@@ -9,14 +9,21 @@ import java.util.Set;
 
 public class Model {
 
-    private List<ViewDescriptor> mDescriptors;
-    private List<Import> mImports;
+    private final String packageName;
+    private final String className;
+    private final List<ViewDescriptor> descriptors;
+    private final List<Import> imports;
 
-    Model(Map<String, String> idToClass) {
-        if (mDescriptors != null || mImports != null) {
-            throw new IllegalStateException("Model has been already prepared");
-        }
+    public Model(String packageName, String className, List<ViewDescriptor> descriptors, List<Import> imports) {
+        this.packageName = packageName;
+        this.className = className;
+        this.descriptors = descriptors;
+        this.imports = imports;
+    }
 
+    Model(Map<String, String> idToClass, String packageName, String className) {
+        this.packageName = packageName;
+        this.className = className;
         List<ViewDescriptor> descriptors = new ArrayList<ViewDescriptor>();
         Set<Import> imports = new HashSet<Import>();
 
@@ -25,26 +32,34 @@ public class Model {
             imports.add(new Import(entry.getValue()));
         }
 
-        mDescriptors = Collections.unmodifiableList(descriptors);
+        this.descriptors = Collections.unmodifiableList(descriptors);
 
         List<Import> importList = new ArrayList<Import>(imports);
         Collections.sort(importList);
-        mImports = Collections.unmodifiableList(importList);
+        this.imports = Collections.unmodifiableList(importList);
     }
 
     public List<ViewDescriptor> getDescriptors() {
-        return mDescriptors;
+        return descriptors;
     }
 
     public List<Import> getImports() {
-        return mImports;
+        return imports;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public String getClassName() {
+        return className;
     }
 
     @Override
     public String toString() {
         return "Model{" +
-                "mDescriptors=" + mDescriptors +
-                ", mImports=" + mImports +
+                "descriptors=" + descriptors +
+                ", imports=" + imports +
                 '}';
     }
 }

@@ -1,10 +1,9 @@
 package org.artyomcool.viewholdergen;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,13 +33,15 @@ public class XmlParserTest {
 
     @org.junit.Test
     public void testParse() throws Exception {
-        Model model = mParser.parse(mTestXml);
+        String layoutName = "test_layout";
+        String className = "TestLayout";
+        String packageName = "org.artyomcool.test";
+        Model model = mParser.parse(mTestXml, packageName, layoutName);
 
         Assert.assertEquals("Model imports are incorrect", mTestImports, model.getImports());
         Assert.assertEquals("Model descriptors are incorrect", mTestDescriptors, model.getDescriptors());
-
-        //TODO move out to separate test
-        new ModelWriter(new PrintWriter(System.out)).write(model, "org.artyomcool.test", "test_layout");
+        Assert.assertEquals("Class name is incorrect", className, model.getClassName());
+        Assert.assertEquals("Package name is incorrect", packageName, model.getPackageName());
     }
 
 }

@@ -1,10 +1,11 @@
-package org.artyomcool.test;
+<#-- @ftlvariable name="" type="org.artyomcool.viewholdergen.Model" -->
+<#if packageName != "">package ${packageName};</#if>
 
-import ImageView;
-import ScrollView;
-import TextView;
+<#list imports as import>
+${import};
+</#list>
 
-public class TestLayout {
+public class ${className} {
 
     //--- GENERATED FIELDS - DO NOT MODIFY
     /**
@@ -12,36 +13,22 @@ public class TestLayout {
     */
     private View mView;
 
+<#list descriptors as descriptor>
     /**
-    * Field for R.id.scroll_view
+    * Field for R.id.${descriptor.id}
     */
-    private mScrollView mScrollView;
+    private ${descriptor.fieldClass} ${descriptor.fieldName};
 
-    /**
-    * Field for R.id.logo
-    */
-    private mLogo mLogo;
-
-    /**
-    * Field for R.id.version
-    */
-    private mVersion mVersion;
-
-    /**
-    * Field for R.id.background
-    */
-    private mBackground mBackground;
-
+</#list>
     //--- END OF GENERATED FIELDS
 
     //--- GENERATED METHODS - DO NOT MODIFY
 
     protected void init(View view) {
         mView = view;
-        mScrollView = view.findViewById(R.id.scroll_view);
-        mLogo = view.findViewById(R.id.logo);
-        mVersion = view.findViewById(R.id.version);
-        mBackground = view.findViewById(R.id.background);
+    <#list descriptors as descriptor>
+        ${descriptor.fieldName} = view.findViewById(R.id.${descriptor.id});
+    </#list>
         afterInit();
     }
 
@@ -56,7 +43,7 @@ public class TestLayout {
     /**
     * Creates holder from {@link LayoutInflater} with parent (can be null)
     */
-    public static TestLayout create(LayoutInflater inflater, ViewParent parent) {
+    public static ${className} create(LayoutInflater inflater, ViewParent parent) {
         View view = inflater.inflate(R.layout.test_layout, parent, false);
         return create(view);
     }
@@ -64,8 +51,8 @@ public class TestLayout {
     /**
     * Creates holder from view
     */
-    public static TestLayout create(View view) {
-        TestLayout holder = new TestLayout();
+    public static ${className} create(View view) {
+        ${className} holder = new ${className}();
         holder.init(view);
     }
 
@@ -75,7 +62,7 @@ public class TestLayout {
     * If view is null, new view will be created with passed parent and associated with new holder.
     * If tag is null, new holder will be created and associated with view.
     */
-    public static TestLayout get(View oldView, ViewParent parent) {
+    public static ${className} get(View oldView, ViewParent parent) {
         if (oldView == null) {
             if (parent == null) {
                 throw new NullPointerException("Parent can not be null");
@@ -88,19 +75,19 @@ public class TestLayout {
             return create(oldView);
         }
         try {
-            return (TestLayout)holder;
+            return (${className})holder;
         } catch(ClassCastException ex) {
-            throw new IllegalArgumentException("View has tag that is not TestLayout", ex);
+            throw new IllegalArgumentException("View has tag that is not ${className}", ex);
         }
     }
 
     //-- END OF GENERATED METHODS
 
     /**
-    * Creates empty TestLayout
+    * Creates empty ${className}
     * It will be invalid until {@link #init(View)} will be called.
     */
-    protected TestLayout() {
+    protected ${className}() {
     }
 
     /**
