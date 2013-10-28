@@ -24,7 +24,7 @@ public class ModelWriterTest {
                 new Import("ScrollView"),
                 new Import("TextView")
         );
-        model = new Model("org.artyomcool.test", "TestLayout", testDescriptors, testImports);
+        model = new Model("org.artyomcool.test", "TestLayout", "test_layout", testDescriptors, testImports);
     }
 
     @Test

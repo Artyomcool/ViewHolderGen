@@ -13,7 +13,7 @@ public class ViewDescriptor {
     }
 
     public String getFieldClass() {
-        return fieldClass;
+        return fieldClass.substring(fieldClass.lastIndexOf('.') + 1);
     }
 
     public String getFieldName() {

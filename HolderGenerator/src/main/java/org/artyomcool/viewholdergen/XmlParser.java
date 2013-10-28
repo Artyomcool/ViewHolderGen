@@ -11,7 +11,7 @@ import java.util.Collections;
 
 public class XmlParser {
 
-    public Model parse(InputStream xmlStream, String packageName, String layoutName) throws IOException {
+    public Model parse(InputStream xmlStream, String basePackage, String packageName, String layoutName) throws IOException {
         if (xmlStream == null) {
             throw new NullPointerException("xmlStream is null");
         }
@@ -29,13 +29,12 @@ public class XmlParser {
                 SAXParser parser = factory.newSAXParser();
                 ModelSaxHandler handler = new ModelSaxHandler();
                 parser.parse(xmlStream, handler);
-                return new Model(handler.getIdToClass(), packageName, className);
-            } catch (ParserConfigurationException e) {
-                //TODO throw new ParseException(e);
-            } catch (SAXException e) {
+                return new Model(handler.getIdToClass(), basePackage, packageName, className, layoutName);
+            } catch (ParserConfigurationException | SAXException e) {
                 //TODO throw new ParseException(e);
             }
-            return new Model(Collections.<String, String>emptyMap(), packageName, className);
+            //TODO kill me please
+            return new Model(Collections.<String, String>emptyMap(), basePackage, packageName, className, layoutName);
         } finally {
             try {
                 xmlStream.close();

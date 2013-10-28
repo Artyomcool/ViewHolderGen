@@ -12,7 +12,7 @@ public class ModelWriter {
 
     private static Configuration configuration = new Configuration();
     static {
-        configuration.setTemplateLoader(new ClassTemplateLoader(Thread.class, "/"));
+        configuration.setTemplateLoader(new ClassTemplateLoader(ModelWriter.class, "/"));
     }
 
     private Model model;

@@ -1,0 +1,41 @@
+<idea-plugin version="2">
+  <id>org.artyomcool.viewholdergen</id>
+  <name>Android ViewHolder Generator</name>
+  <version>1.0</version>
+  <vendor email="artyomcool2@gmail.com">Artyomcool</vendor>
+
+  <description><![CDATA[
+    TODO
+      Enter short description for your plugin here.<br>
+      <small>most HTML tags may be used</small>
+      ]]></description>
+
+  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="107.105"/>
+
+  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+    <depends>com.intellij.modules.lang</depends>
+    <depends>org.jetbrains.android</depends>
+
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+      <action id="ViewHolderGen.GenerateHolder" class="GenerateHolderAction" text="Generate ViewHolder"
+              description="Generates ViewHolder pattern for android layout.xml">
+          <add-to-group group-id="XmlGenerateToolsGroup" anchor="first"/>
+      </action>
+  </actions>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+</idea-plugin>

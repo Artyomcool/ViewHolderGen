@@ -36,7 +36,7 @@ public class XmlParserTest {
         String layoutName = "test_layout";
         String className = "TestLayout";
         String packageName = "org.artyomcool.test";
-        Model model = mParser.parse(mTestXml, packageName, layoutName);
+        Model model = mParser.parse(mTestXml, "org.artyomcool", packageName, layoutName);
 
         Assert.assertEquals("Model imports are incorrect", mTestImports, model.getImports());
         Assert.assertEquals("Model descriptors are incorrect", mTestDescriptors, model.getDescriptors());

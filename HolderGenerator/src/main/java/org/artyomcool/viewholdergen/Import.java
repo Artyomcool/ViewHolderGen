@@ -5,7 +5,7 @@ public class Import implements Comparable<Import> {
     private String className;
 
     public Import(String className) {
-        this.className = toFullQualified(className);
+        this.className = className;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Import implements Comparable<Import> {
 
     @Override
     public String toString() {
-        return "import " + className;
+        return "import " + className +";";
     }
 
     @Override
@@ -35,10 +35,4 @@ public class Import implements Comparable<Import> {
         return className.compareTo(o.className);
     }
 
-    private static String toFullQualified(String className) {
-        if (className.contains(".")) {
-            return className;
-        }
-        return "android.widget." + className;
-    }
 }

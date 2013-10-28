@@ -21,7 +21,7 @@ class ModelSaxHandler extends DefaultHandler {
     @Override
     public void startDocument() throws SAXException {
         mFinished = false;
-        mIdToClass = new LinkedHashMap<String, String>();
+        mIdToClass = new LinkedHashMap<>();
     }
 
     @Override
@@ -37,8 +37,10 @@ class ModelSaxHandler extends DefaultHandler {
         if (id != null) {
             id = afterSubstring(id, "id/");
 
-            @SuppressWarnings("UnnecessaryLocalVariable")
-            String className = localName;
+            String className = convertClassName(localName, attributes);
+            if (className == null) {
+                throw new SAXException("Can't get a class name for tag " + localName);
+            }
 
             String oldName = mIdToClass.put(id, className);
             if (oldName != null) {
@@ -52,6 +54,20 @@ class ModelSaxHandler extends DefaultHandler {
             throw new IllegalStateException("Attempt to get parsed value before parsing finished");
         }
         return mIdToClass;
+    }
+
+    private static String convertClassName(String name, Attributes attributes) {
+        if (name.equals("view")) {
+            return attributes.getValue("class");
+        }
+        if (name.equals("View")) {
+            return "android.view.View";
+        }
+
+        if (name.contains(".")) {
+            return name;
+        }
+        return "android.widget." + name;
     }
 
     private static String afterSubstring(String original, String substring) {

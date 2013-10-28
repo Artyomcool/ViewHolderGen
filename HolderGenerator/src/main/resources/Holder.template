@@ -2,7 +2,7 @@
 <#if packageName != "">package ${packageName};</#if>
 
 <#list imports as import>
-${import};
+${import}
 </#list>
 
 public class ${className} {
@@ -27,9 +27,9 @@ public class ${className} {
     protected void init(View view) {
         mView = view;
     <#list descriptors as descriptor>
-        ${descriptor.fieldName} = view.findViewById(R.id.${descriptor.id});
+        ${descriptor.fieldName} = (${descriptor.fieldClass})view.findViewById(R.id.${descriptor.id});
     </#list>
-        afterInit();
+        afterInit(view);
     }
 
 
@@ -43,8 +43,8 @@ public class ${className} {
     /**
     * Creates holder from {@link LayoutInflater} with parent (can be null)
     */
-    public static ${className} create(LayoutInflater inflater, ViewParent parent) {
-        View view = inflater.inflate(R.layout.test_layout, parent, false);
+    public static ${className} create(LayoutInflater inflater, ViewGroup parent) {
+        View view = inflater.inflate(R.layout.${layoutId}, parent, false);
         return create(view);
     }
 
@@ -54,6 +54,7 @@ public class ${className} {
     public static ${className} create(View view) {
         ${className} holder = new ${className}();
         holder.init(view);
+        return holder;
     }
 
     /**
@@ -62,12 +63,11 @@ public class ${className} {
     * If view is null, new view will be created with passed parent and associated with new holder.
     * If tag is null, new holder will be created and associated with view.
     */
-    public static ${className} get(View oldView, ViewParent parent) {
+    public static ${className} get(View oldView, ViewGroup parent, LayoutInflater inflater) {
         if (oldView == null) {
             if (parent == null) {
                 throw new NullPointerException("Parent can not be null");
             }
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             return create(inflater, parent);
         }
         Object holder = oldView.getTag();
